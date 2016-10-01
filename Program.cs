@@ -10,11 +10,15 @@ namespace HWProg
 			                  "\n1. Надо ввести номер задания" +
 			                  "\n2. Надо ввести требуемые переменные" +
 			                  "\n ");
-			Console.WriteLine("Write a hw number");
+			Console.WriteLine("Write a hw number (1,3,4)");
 			int DZ = Convert.ToInt32(Console.ReadLine());
 
 			switch (DZ)
 			{
+				case 1:
+					Num1();
+					break; 
+					
 				case 3:
 					Num3();
 					break;
@@ -26,6 +30,29 @@ namespace HWProg
 				default:
 					break;
 			}
+		}
+
+		public static void Num1()
+		{
+			Console.WriteLine("Введите целое число:");
+
+			int number = Convert.ToInt32(Console.ReadLine());
+			int result;
+
+			if (number > 0)
+			{
+				result = number * 2;
+			}
+			else if (number < 0)
+			{
+				result = number - 3;
+			}
+			else
+			{
+				result = 10;
+			}
+
+			Console.WriteLine(result);
 		}
 
 		public static void Num3()

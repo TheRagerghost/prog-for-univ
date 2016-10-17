@@ -70,13 +70,25 @@ namespace ProgUniv
 
 
 		public static void Main(string[] args)
-		{
+		{	//проверь, по идее так не даст ввести неверное значение и будет просить ввести ещё разок
+			 double nx;
+			 double ny;
+			 double nz;
+		        do
+			{
 			Console.WriteLine("X=?");
-			double nx = Convert.ToDouble(Console.ReadLine());
+			}			
+			(!Double.TryParse(Console.ReadLine(),out nx))		 
+			do
+			{
 			Console.WriteLine("Y=?");
-			double ny = Convert.ToDouble(Console.ReadLine());
+			}			
+			(!Double.TryParse(Console.ReadLine(),out ny))
+			do
+			{
 			Console.WriteLine("Z=?");
-			double nz = Convert.ToDouble(Console.ReadLine());
+			}			
+			(!Double.TryParse(Console.ReadLine(),out nz))
 			Vector3 myVector = new Vector3(nx,ny,nz);
 			double moduleXYZ = Math.Sqrt(myVector.x * myVector.x + myVector.y * myVector.y + myVector.z * myVector.z);
 			if (moduleXYZ > 0)

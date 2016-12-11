@@ -20,27 +20,26 @@ namespace MassiveWorks
 	{
 		public static void Main(string[] args)
 		{
-			int _m, _n;
 
-			Random _random = new Random();
-			_m = _random.Next(3, 9);
-			_n = _random.Next(4, 12);
-			int[,] _mas1 = new int[_m, _n];
+			//11111111111111111111111111111111111111111111111111111111111111
 
-
-			//1111111111111111111111111111111111111111111111111111
-
-			Console.WriteLine("*******************************************");
+            Console.WriteLine("*******************************************");
 			Console.WriteLine("1111111111111111111111111111111111111111111");
 			Console.WriteLine("*******************************************");
 			Console.WriteLine();
 			Console.WriteLine();
 
+			int _m, _n;
+			Random _random = new Random();
+			_m = _random.Next(3, 9);
+			_n = _random.Next(4, 12);
+			int[,] _mas1 = new int[_m, _n];        //Объявляю массив
+
 			for (int i = 0; i < _m; i++)
 			{
 				for (int j = 0; j < _n; j++)
 				{
-					_mas1[i, j] = _random.Next(0, 9);
+					_mas1[i, j] = _random.Next(0, 9);     //Заплняю его
 				}
 			}
 
@@ -48,13 +47,16 @@ namespace MassiveWorks
 			{
 				for (int j = 0; j < _n; j++)
 				{
-					Console.Write("{0}  ", _mas1[i, j]);
+					Console.Write("{0}  ", _mas1[i, j]);    //Вывожу его в консоль (*1*)
 				}
 				Console.WriteLine();
 				Console.WriteLine();
 			}
 
-			//22222222222222222222222222222222222222222222222222222
+
+
+
+			//22222222222222222222222222222222222222222222222222222222222222
 
 			Console.WriteLine("*******************************************");
 			Console.WriteLine("2222222222222222222222222222222222222222222");
@@ -62,44 +64,44 @@ namespace MassiveWorks
 			Console.WriteLine();
 			Console.WriteLine();
 
-			int[] _nemas = new int[_n];
+			int[] _nemas = new int[_n];          //Объявляю вспомогательный массив для обратного порядка
 
 			for (int i = 0; i < _n; i++)
 			{
-				_nemas[i] = _mas1[0, (_n - 1 - i)];
+				_nemas[i] = _mas1[0, (_n - 1 - i)];      //Заполняю его обратным первым рядом
 			}
 
 			for (int i = 0; i < _n; i++)
 			{
-				_mas1[0, i] = _nemas[i];
+				_mas1[0, i] = _nemas[i];                 //Заменяю первый ряд обратным из вспомогательного массива
 			}
 
 			for (int i = 0; i < _n; i++)
 			{
-				_nemas[i] = _mas1[(_m - 1), (_n - 1 - i)];
+				_nemas[i] = _mas1[(_m - 1), (_n - 1 - i)];    //Заполняю вспомогательный обратным последним рядом
 			}
 
 			for (int i = 0; i < _n; i++)
 			{
-				_mas1[(_m - 1), i] = _mas1[0, i];
+				_mas1[(_m - 1), i] = _mas1[0, i];           //Заменяю последний ряд первым
 			}
 
 			for (int i = 0; i < _n; i++)
 			{
-				_mas1[0, i] = _nemas[i];
+				_mas1[0, i] = _nemas[i];                //Заменяю первый ряд обратным последним
 			}
 
 			for (int i = 0; i < _m; i++)
 			{
 				for (int j = 0; j < _n; j++)
 				{
-					Console.Write("{0}  ", _mas1[i, j]);
+					Console.Write("{0}  ", _mas1[i, j]);          //(*1*)
 				}
 				Console.WriteLine();
 				Console.WriteLine();
 			}
 
-			//3333333333333333333333333333333333333333333333333333333
+			//33333333333333333333333333333333333333333333333333333333333333
 
 			Console.WriteLine("*******************************************");
 			Console.WriteLine("3333333333333333333333333333333333333333333");
@@ -115,70 +117,61 @@ namespace MassiveWorks
 				{
 					if (_mas1[i, j] < _min)
 					{
-						_min = _mas1[i, j];
-						_mini = i;
-						_minj = j;
+						_min = _mas1[i, j];             //Нахожу первый минимальный элемент массива, а также пересекающиеся
+						_mini = i;                      //ряд и
+						_minj = j;                      //столбец
 					}
 				}
 			}
 
-			int[,] _helpmas = new int[_m - 1, _n - 1];
+			int[,] _helpmas = new int[_m - 1, _n - 1];  //Объявляю вспомогательный двумерный массив
 
-			for (int i = 0; i < _m; i++)
+			for (int i = 0; i < _m; i++)                           //Вывожу в него 
 			{
 				for (int j = 0; j < _n; j++)
 				{
-
 					if (i > _mini && j > _minj)
 					{
-						_helpmas[i - 1, j - 1] = _mas1[i, j];
+						_helpmas[i - 1, j - 1] = _mas1[i, j];      //нижнюю правую четверть  
 					}
 					else if (i > _mini && j < _minj)
 					{
-						_helpmas[i - 1, j] = _mas1[i, j];
+						_helpmas[i - 1, j] = _mas1[i, j];          //нижнюю левую четверть
 					}
 					else if (i < _mini && j > _minj)
 					{
-						_helpmas[i, j - 1] = _mas1[i, j];
+						_helpmas[i, j - 1] = _mas1[i, j];          //верхнюю правую четверть
 					}
 					else if (i < _mini && j < _minj)
 					{
-						_helpmas[i, j] = _mas1[i, j];
+						_helpmas[i, j] = _mas1[i, j];              //верхнюю левую четверть
 					}
 				}
 			}
 
-
-
-
-
-
-			_m--;
-			_n--;
-			_mas1 = new int[_m, _n];
+			_m--;                                                  //Так как в C# отсутствуют динамические массивы,
+			_n--;                                                  //то попросту переобъявляю старый массив,
+			_mas1 = new int[_m, _n];                               //укоротив его на 1 ряд и 1 столбец
 
 			for (int i = 0; i < _m; i++)
 			{
 				for (int j = 0; j < _n; j++)
 				{
-					_mas1[i, j] = _helpmas[i, j];
+					_mas1[i, j] = _helpmas[i, j];                  //Присваиваю значения вспомогательного массива основному
 				}
 			}
-
-
 
 			for (int i = 0; i < _m; i++)
 			{
 				for (int j = 0; j < _n; j++)
 				{
-					Console.Write("{0}  ", _mas1[i, j]);
+					Console.Write("{0}  ", _mas1[i, j]);           //(*1*)
 				}
 				Console.WriteLine();
 				Console.WriteLine();
 			}
 
-
-			//4444444444444444444444444444444444444444444444444444444
+			//44444444444444444444444444444444444444444444444444444444444444
 
 			Console.WriteLine("*******************************************");
 			Console.WriteLine("4444444444444444444444444444444444444444444");
@@ -187,14 +180,17 @@ namespace MassiveWorks
 			Console.WriteLine();
 
 			string _newmas = "";
-
-
 			int _nm = 0, _nn = 0;
 
 			Console.WriteLine("Vvedite svoy massiv. (Optimalnoye kolichestvo strok - {0})" +
 									"\n 1. Vse elementi dolzhni bit razdeleni probelom." +
 									"\n 2. Vse stroki dolzhni bit razdeleni zapyatimi." +
-									"\n 3. Massiv dolzhen bit zakrit tochkoy v konce.", _n); 			_newmas = Console.ReadLine();
+									"\n 3. Massiv dolzhen bit zakrit tochkoy v konce.", _n);
+			_newmas = Console.ReadLine();                                                         //Считываю строку
+
+
+			//В случае возникновения ошибки из-за неправильно введенной строки программа выдаст ошибку
+			//и завершит процесс
 
 			try
 			{
@@ -212,12 +208,9 @@ namespace MassiveWorks
 				Environment.Exit(0);
 			}
 
-
-			int[,] _mas2 = Massivate(_newmas);
-			_nm = _mas2.GetUpperBound(0) + 1;
+			int[,] _mas2 = Massivate(_newmas);            //Происходит преобразование строки в двумерный массив
+			_nm = _mas2.GetUpperBound(0) + 1;             
 			_nn = _mas2.GetUpperBound(1) + 1;
-			//Console.WriteLine(_nn);
-
 
 			Console.WriteLine();
 			Console.WriteLine();
@@ -226,7 +219,7 @@ namespace MassiveWorks
 			{
 				for (int j = 0; j < _n; j++)
 				{
-					Console.Write("{0}  ", _mas1[i, j]);
+					Console.Write("{0}  ", _mas1[i, j]);  //(*1*)
 				}
 				Console.WriteLine();
 				Console.WriteLine();
@@ -237,14 +230,14 @@ namespace MassiveWorks
 			{
 				for (int j = 0; j < _nn; j++)
 				{
-					Console.Write("{0}  ", _mas2[i, j]);
+					Console.Write("{0}  ", _mas2[i, j]);  //Вывожу преобразованный из строки массив
 				}
 				Console.WriteLine();
 				Console.WriteLine();
 			}
 
+			//55555555555555555555555555555555555555555555555555555555555555
 
-			//555555555555555555555555555555555555555555555555555555555
 			Console.WriteLine("*******************************************");
 			Console.WriteLine("5555555555555555555555555555555555555555555");
 			Console.WriteLine("*******************************************");
@@ -260,7 +253,7 @@ namespace MassiveWorks
 					_mas3[i, j] = 0;
 					for (int k = 0; k < _n;k++)
 					{
-						_mas3[i, j] += _mas1[i,k] * _mas2[k,j];
+						_mas3[i, j] += _mas1[i,k] * _mas2[k,j];       //Перемножаю массивы
 					}
 				}
 			}
@@ -269,77 +262,66 @@ namespace MassiveWorks
 			{
 				for (int j = 0; j < _nn; j++)
 				{
-					Console.Write("{0}  ", _mas3[i, j]);
+					Console.Write("{0}  ", _mas3[i, j]);              //Вывожу получившийся массив
 				}
 				Console.WriteLine();
 				Console.WriteLine();
 			}
 		}
 
-
 		public static int[,] Massivate(string _string){
 			int _nm = 0, _nn = 0;
-			string[] _mainsep = new string[] { "." };
+			string[] _mainsep = new string[] { "." };               //Создаю разделители
 			string[] _rowsep = new string[] { "," };
 			string[] _columnsep = new string[] { " " };
 			string[] _rowsmas;
 			string[] _readyToMassivate;
 			string _newstring;
-			_readyToMassivate = _string.Split(_mainsep,StringSplitOptions.RemoveEmptyEntries);
+			_readyToMassivate = _string.Split(_mainsep,StringSplitOptions.RemoveEmptyEntries); //Разделяю строку до первой точки
 			_newstring = _readyToMassivate[0];
-
 			List<string> _rows = new List<string>();
-			_readyToMassivate = _newstring.Split(_rowsep, StringSplitOptions.RemoveEmptyEntries);
+			_readyToMassivate = _newstring.Split(_rowsep, StringSplitOptions.RemoveEmptyEntries); //Разделяю остаток строки на ряды
 			int l = _readyToMassivate.Length;
 
 			for (int i = 0; i < l;i++){
-				_rows.Add(_readyToMassivate[i]);
+				_rows.Add(_readyToMassivate[i]);                                                 //Добавляю ряды в список
 			}
 
-			_rowsmas = _rows.ToArray();
-
+			_rowsmas = _rows.ToArray();                                                          //Преобразовываю список в массив
 			_nm = l;
-			_readyToMassivate = _rowsmas[0].Split(_columnsep, StringSplitOptions.RemoveEmptyEntries);
-			_nn = _readyToMassivate.Length;
-
-            int[,] _massivated = new int[_nm, _nn];
+			_readyToMassivate = _rowsmas[0].Split(_columnsep, StringSplitOptions.RemoveEmptyEntries); //Разделяю первый ряд на числа
+			_nn = _readyToMassivate.Length;                                                           //Считаю количество чисел
+            int[,] _massivated = new int[_nm, _nn];                                                   //Объявляю массив 
 
 			for (int i = 0; i < _nm; i++)
 			{
-				_readyToMassivate = _rowsmas[i].Split(_columnsep, StringSplitOptions.RemoveEmptyEntries);
+				_readyToMassivate = _rowsmas[i].Split(_columnsep, StringSplitOptions.RemoveEmptyEntries);   //Разделяю все ряды на числа
 				for (int j = 0; j < _nn; j++){
-					_massivated[i, j] = Convert.ToInt32(_readyToMassivate[j]);
+					_massivated[i, j] = Convert.ToInt32(_readyToMassivate[j]);                        //Записываю в массив числа
 				}
 			}
-
-			return _massivated;
-		}
-
-		public static int Converter (string number){
-			int i = 0;
-			i = Convert.ToInt32(number);
-			return i;
+			return _massivated;                                                                     //Возвращаю массив
 		}
 
 		public static bool CheckString(string _string, int n){
 			int l = 0;
 			int m = 0, k = 0;
-			bool _isNormal = false;
+			bool _isNormal = false;                                                 //Ввожу ряд проверяющих булов
 			bool _hasEnd = false;
 			bool _equalLines = false;
 			bool _sameLength = true;
 			foreach (char element in _string){
 
-				if (Convert.ToInt32(element) == Convert.ToInt32(' '))
+				if (Convert.ToInt32(element) == Convert.ToInt32(' '))  
 				{
-					k++;
+					k++;                                                            //Считаю пробелы
 				}
 
 				if (Convert.ToInt32(element) == Convert.ToInt32(',')){
-					l++;
-					if (m == 0)
-					{
-						m = k;
+					l++;                                                            //Считаю ряды
+					if (m == 0)                                                     //Далее провожу сравнение количества пробелов
+					{                                                               //Каждый пробел - это переход к новому числу
+						m = k;                                                      //От них напрямую зависит длина рядов
 						k = 0;
 					}
 					else if (m == k)
@@ -352,7 +334,7 @@ namespace MassiveWorks
 					}
 
 				} else if (Convert.ToInt32(element) == Convert.ToInt32('.')){
-					_hasEnd = true;
+					_hasEnd = true;                                                 //Проверяю наличие точки
 					l++;
 					if (m == k)
 					{
@@ -362,9 +344,8 @@ namespace MassiveWorks
 					{
 						_sameLength = false;
 					}
-					break;
+					break;                                                           //Выхжу из цикла по достижении точки
 				}
-					
 			}
 
 			if(l==n && _sameLength){
@@ -374,9 +355,7 @@ namespace MassiveWorks
 			if (_hasEnd&&_equalLines){
 				_isNormal = true;
 			}
-
-				return _isNormal;
+				return _isNormal;                                                     //Возвращаю результат проверки
 		}
-
 	}
 }
